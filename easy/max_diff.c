@@ -1,4 +1,4 @@
-// Maximum Difference Between Even and Odd Frequency 
+// Maximum Difference Between Even and Odd Frequency I
 
 #include <stdio.h>
 #include <limits.h> // For INT_MIN and INT_MAX
