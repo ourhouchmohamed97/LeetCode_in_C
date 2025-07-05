@@ -1,3 +1,5 @@
+// Find Lucky Integer in an Array
+
 #include <stdio.h>
 
 int findLucky(int* arr, int arrSize) {
