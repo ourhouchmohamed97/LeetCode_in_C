@@ -73,7 +73,7 @@ Your contributions are always welcome and appreciated! 🙌
 
 Thank you for visiting this repository! Whether you’re preparing for interviews, learning C, or just exploring algorithms, I hope you find these solutions helpful and inspiring. If you like this project, consider giving it a ⭐ to show your support.
 
-Happy coding and problem-solving! 😊
+Happy coding and problem solving! 😊
 
 ---
 
