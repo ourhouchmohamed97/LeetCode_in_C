@@ -17,7 +17,8 @@ int lengthOfLastWord(char* s) {
     return len;
 }
 
-int main() {
+int main()
+{
     char s1[] = "Hello World";
     printf("Example 1: \"%s\" -> %d\n", s1, lengthOfLastWord(s1));  // Output: 5
     
