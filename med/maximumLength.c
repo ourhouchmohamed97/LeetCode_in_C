@@ -1,5 +1,7 @@
 // Find the Maximum Length of Valid Subsequence I
 
+#include <stdio.h>
+
 int maximumLength(int* nums, int numsSize) {
     int evenCount = 0, oddCount = 0;
     for (int i = 0; i < numsSize; ++i) {
