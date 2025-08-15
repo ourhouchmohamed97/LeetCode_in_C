@@ -1,4 +1,4 @@
-// Power of Four
+// Power of Four (streak)
 
 #include <stdio.h>
 #include <stdbool.h>
