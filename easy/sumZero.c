@@ -3,12 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int* sumZero(int n, int* returnSize) {
+int* sumZero(int n, int* returnSize) 
+{
     *returnSize = n;
     int* arr = (int*)malloc(n * sizeof(int));
-    for (int i = 0; i < n; i++) {
+    if(!arr)
+        return NULL;
+    for (int i = 0; i < n; i++)
         arr[i] = 2 * i - n + 1;
-    }
     return arr;
 }
 
