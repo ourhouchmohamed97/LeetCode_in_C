@@ -20,7 +20,8 @@ int* getNoZeroIntegers(int n, int* returnSize) {
     int* result = (int*)malloc(2 * sizeof(int));
     for (int a = 1; a < n; a++) {
         int b = n - a;
-        if (isNoZero(a) && isNoZero(b)) {
+        if (isNoZero(a) && isNoZero(b))
+        {
             result[0] = a;
             result[1] = b;
             break;
