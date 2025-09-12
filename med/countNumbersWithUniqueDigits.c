@@ -15,7 +15,7 @@ int countNumbersWithUniqueDigits(int n) {
         ans += unique;
         available--;
     }
-    return ans;
+    return (ans);
 }
 
 int main(void) {
