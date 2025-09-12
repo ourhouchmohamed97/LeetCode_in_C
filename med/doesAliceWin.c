@@ -5,13 +5,13 @@
 #include <ctype.h>
 
 bool doesAliceWin(char* s) {
-    if (!s) return false;
+    if (!s) return (false);
     for (char *p = s; *p; ++p) {
         char c = tolower((unsigned char)*p);
         if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
-            return true;
+            return (true);
     }
-    return false;
+    return (false);
 }
 
 int main(void) {
