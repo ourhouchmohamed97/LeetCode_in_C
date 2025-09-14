@@ -1,3 +1,5 @@
+// Maximum Number of Balls in a Box
+
 #include <stdio.h>
 
 int digitSum(int num) {
