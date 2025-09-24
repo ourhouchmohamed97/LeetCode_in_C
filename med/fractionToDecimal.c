@@ -5,6 +5,7 @@
 #include <string.h>
 #include <limits.h>
 
+
 typedef struct {
     long long rem;
     int index;
