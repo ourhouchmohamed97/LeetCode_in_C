@@ -23,7 +23,6 @@ double largestTriangleArea(int** points, int pointsSize, int* pointsColSize) {
 }
 
 int main() {
-    // Example 1
     int points1[5][2] = {{0,0}, {0,1}, {1,0}, {0,2}, {2,0}};
     int* points1_ptr[5];
     for (int i = 0; i < 5; i++) {
@@ -33,7 +32,6 @@ int main() {
     double result1 = largestTriangleArea(points1_ptr, 5, &pointsColSize1);
     printf("Example 1 Output: %.5f\n", result1);
 
-    // Example 2
     int points2[3][2] = {{1,0}, {0,0}, {0,1}};
     int* points2_ptr[3];
     for (int i = 0; i < 3; i++) {
