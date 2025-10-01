@@ -22,13 +22,11 @@ int main() {
     numBottles = 9;
     numExchange = 3;
     printf("Example 1: %d\n", numWaterBottles(numBottles, numExchange)); 
-    // Expected: 13
 
     // Example 2
     numBottles = 15;
     numExchange = 4;
     printf("Example 2: %d\n", numWaterBottles(numBottles, numExchange)); 
-    // Expected: 19
 
     // Custom input
     printf("Enter numBottles and numExchange: ");
