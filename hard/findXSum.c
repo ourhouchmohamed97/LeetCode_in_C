@@ -352,7 +352,6 @@ long long* findXSum(int* nums, int numsSize, int k, int x, int* returnSize) {
                 if (heap_empty(&top)) break;
             }
         }
-
         ans[i - k + 1] = xSum;
     }
 
