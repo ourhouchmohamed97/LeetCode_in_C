@@ -1,5 +1,8 @@
 // Power Grid Maintenance
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct {
     int* parent;
@@ -35,7 +38,6 @@ void dsuFree(DSU* obj) {
 typedef struct {
     int key;
     int val;
-    UT_hash_handle hh;
 } HashItem;
 
 HashItem* hashFindItem(HashItem** obj, int key) {
@@ -71,14 +73,6 @@ int hashGetItem(HashItem** obj, int key, int defaultVal) {
         return defaultVal;
     }
     return pEntry->val;
-}
-
-void hashFree(HashItem** obj) {
-    HashItem *curr = NULL, *tmp = NULL;
-    HASH_ITER(hh, *obj, curr, tmp) {
-        HASH_DEL(*obj, curr);
-        free(curr);
-    }
 }
 
 int* processQueries(int c, int** connections, int connectionsSize,
