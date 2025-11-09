@@ -15,8 +15,10 @@ int countOperations(int num1, int num2) {
 }
 
 int main() {
+
     printf("%d\n", countOperations(10, 4));
     printf("%d\n", countOperations(2, 3));
     printf("%d\n", countOperations(0, 5));
     return 0;
+    
 }
