@@ -1,6 +1,6 @@
 // Two Best Non-Overlapping Events
 
-static int cmpEvents(const void *pa, const void *pb) {
+int cmpEvents(const void *pa, const void *pb) {
     const int *a = *(const int * const *)pa;
     const int *b = *(const int * const *)pb;
     if (a[0] != b[0]) return (a[0] < b[0]) ? -1 : 1;
@@ -8,7 +8,7 @@ static int cmpEvents(const void *pa, const void *pb) {
     return 0;
 }
 
-static int lower_bound_int(const int *arr, int n, int target) {
+int lower_bound_int(const int *arr, int n, int target) {
     int lo = 0, hi = n;
     while (lo < hi) {
         int mid = lo + (hi - lo) / 2;
