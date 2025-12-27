@@ -1,221 +1,133 @@
 // Meeting Rooms III
 
-#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct {
-    long long time;
-    int room;
-} RoomEnd;
-
-typedef struct {
-    long long start;
     long long end;
-    long long original_start;
-} Meeting;
+    int room;
+} BusyRoom;
 
-// Min-heap for RoomEnd (based on time and room number)
-typedef struct {
-    RoomEnd *data;
-    int size;
-    int capacity;
-} MinHeapRooms;
-
-// Min-heap for available rooms (based on room number)
-typedef struct {
-    int *data;
-    int size;
-    int capacity;
-} MinHeapAvailable;
-
-void initMinHeapRooms(MinHeapRooms *heap, int capacity) {
-    heap->data = (RoomEnd *)malloc(capacity * sizeof(RoomEnd));
-    heap->size = 0;
-    heap->capacity = capacity;
+/* Min-heap for available rooms */
+void swapInt(int* a, int* b) {
+    int t = *a; *a = *b; *b = t;
 }
 
-void initMinHeapAvailable(MinHeapAvailable *heap, int capacity) {
-    heap->data = (int *)malloc(capacity * sizeof(int));
-    heap->size = 0;
-    heap->capacity = capacity;
-}
-
-void swapRoomEnd(RoomEnd *a, RoomEnd *b) {
-    RoomEnd temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-void swapInt(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-void pushRoomEnd(MinHeapRooms *heap, RoomEnd item) {
-    if (heap->size == heap->capacity) {
-        heap->capacity *= 2;
-        heap->data = (RoomEnd *)realloc(heap->data, heap->capacity * sizeof(RoomEnd));
-    }
-    heap->data[heap->size] = item;
-    int current = heap->size;
-    heap->size++;
-    while (current > 0) {
-        int parent = (current - 1) / 2;
-        if (heap->data[parent].time > heap->data[current].time || 
-            (heap->data[parent].time == heap->data[current].time && heap->data[parent].room > heap->data[current].room)) {
-            swapRoomEnd(&heap->data[parent], &heap->data[current]);
-            current = parent;
-        } else {
-            break;
-        }
+void heapPushAvail(int* heap, int* size, int val) {
+    int i = (*size)++;
+    heap[i] = val;
+    while (i > 0) {
+        int p = (i - 1) / 2;
+        if (heap[p] <= heap[i]) break;
+        swapInt(&heap[p], &heap[i]);
+        i = p;
     }
 }
 
-RoomEnd popRoomEnd(MinHeapRooms *heap) {
-    RoomEnd result = heap->data[0];
-    heap->size--;
-    heap->data[0] = heap->data[heap->size];
-    int current = 0;
+int heapPopAvail(int* heap, int* size) {
+    int res = heap[0];
+    heap[0] = heap[--(*size)];
+    int i = 0;
     while (1) {
-        int left = 2 * current + 1;
-        int right = 2 * current + 2;
-        int smallest = current;
-        if (left < heap->size && (heap->data[left].time < heap->data[smallest].time || 
-            (heap->data[left].time == heap->data[smallest].time && heap->data[left].room < heap->data[smallest].room))) {
-            smallest = left;
-        }
-        if (right < heap->size && (heap->data[right].time < heap->data[smallest].time || 
-            (heap->data[right].time == heap->data[smallest].time && heap->data[right].room < heap->data[smallest].room))) {
-            smallest = right;
-        }
-        if (smallest != current) {
-            swapRoomEnd(&heap->data[current], &heap->data[smallest]);
-            current = smallest;
-        } else {
-            break;
-        }
+        int l = 2 * i + 1, r = 2 * i + 2, s = i;
+        if (l < *size && heap[l] < heap[s]) s = l;
+        if (r < *size && heap[r] < heap[s]) s = r;
+        if (s == i) break;
+        swapInt(&heap[i], &heap[s]);
+        i = s;
     }
-    return result;
+    return res;
 }
 
-void pushAvailable(MinHeapAvailable *heap, int item) {
-    if (heap->size == heap->capacity) {
-        heap->capacity *= 2;
-        heap->data = (int *)realloc(heap->data, heap->capacity * sizeof(int));
-    }
-    heap->data[heap->size] = item;
-    int current = heap->size;
-    heap->size++;
-    while (current > 0) {
-        int parent = (current - 1) / 2;
-        if (heap->data[parent] > heap->data[current]) {
-            swapInt(&heap->data[parent], &heap->data[current]);
-            current = parent;
-        } else {
+/* Min-heap for busy rooms (by end time, then room number) */
+void swapBusy(BusyRoom* a, BusyRoom* b) {
+    BusyRoom t = *a; *a = *b; *b = t;
+}
+
+void heapPushBusy(BusyRoom* heap, int* size, BusyRoom val) {
+    int i = (*size)++;
+    heap[i] = val;
+    while (i > 0) {
+        int p = (i - 1) / 2;
+        if (heap[p].end < heap[i].end ||
+           (heap[p].end == heap[i].end && heap[p].room < heap[i].room))
             break;
-        }
+        swapBusy(&heap[p], &heap[i]);
+        i = p;
     }
 }
 
-int popAvailable(MinHeapAvailable *heap) {
-    int result = heap->data[0];
-    heap->size--;
-    heap->data[0] = heap->data[heap->size];
-    int current = 0;
+BusyRoom heapPopBusy(BusyRoom* heap, int* size) {
+    BusyRoom res = heap[0];
+    heap[0] = heap[--(*size)];
+    int i = 0;
     while (1) {
-        int left = 2 * current + 1;
-        int right = 2 * current + 2;
-        int smallest = current;
-        if (left < heap->size && heap->data[left] < heap->data[smallest]) {
-            smallest = left;
-        }
-        if (right < heap->size && heap->data[right] < heap->data[smallest]) {
-            smallest = right;
-        }
-        if (smallest != current) {
-            swapInt(&heap->data[current], &heap->data[smallest]);
-            current = smallest;
-        } else {
-            break;
-        }
+        int l = 2 * i + 1, r = 2 * i + 2, s = i;
+        if (l < *size &&
+           (heap[l].end < heap[s].end ||
+           (heap[l].end == heap[s].end && heap[l].room < heap[s].room)))
+            s = l;
+        if (r < *size &&
+           (heap[r].end < heap[s].end ||
+           (heap[r].end == heap[s].end && heap[r].room < heap[s].room)))
+            s = r;
+        if (s == i) break;
+        swapBusy(&heap[i], &heap[s]);
+        i = s;
     }
-    return result;
+    return res;
 }
 
-int compareMeetings(const void *a, const void *b) {
-    Meeting *meetingA = (Meeting *)a;
-    Meeting *meetingB = (Meeting *)b;
-    if (meetingA->original_start < meetingB->original_start) return -1;
-    if (meetingA->original_start > meetingB->original_start) return 1;
-    return 0;
+int cmp(const void* a, const void* b) {
+    return (*(int**)a)[0] - (*(int**)b)[0];
 }
 
 int mostBooked(int n, int** meetings, int meetingsSize, int* meetingsColSize) {
-    Meeting *sortedMeetings = (Meeting *)malloc(meetingsSize * sizeof(Meeting));
-    for (int i = 0; i < meetingsSize; i++) {
-        sortedMeetings[i].start = meetings[i][0];
-        sortedMeetings[i].end = meetings[i][1];
-        sortedMeetings[i].original_start = meetings[i][0];
-    }
-    qsort(sortedMeetings, meetingsSize, sizeof(Meeting), compareMeetings);
+    qsort(meetings, meetingsSize, sizeof(int*), cmp);
 
-    MinHeapAvailable availableRooms;
-    initMinHeapAvailable(&availableRooms, n);
-    for (int i = 0; i < n; i++) {
-        pushAvailable(&availableRooms, i);
-    }
+    int* available = malloc(sizeof(int) * n);
+    int availSize = 0;
 
-    MinHeapRooms occupiedRooms;
-    initMinHeapRooms(&occupiedRooms, meetingsSize);
+    BusyRoom* busy = malloc(sizeof(BusyRoom) * n);
+    int busySize = 0;
 
-    int *roomCount = (int *)calloc(n, sizeof(int));
+    int* count = calloc(n, sizeof(int));
+
+    for (int i = 0; i < n; i++)
+        heapPushAvail(available, &availSize, i);
 
     for (int i = 0; i < meetingsSize; i++) {
-        long long currentTime = sortedMeetings[i].original_start;
-        // Check if any occupied rooms have ended by currentTime
-        while (occupiedRooms.size > 0 && occupiedRooms.data[0].time <= currentTime) {
-            RoomEnd freedRoom = popRoomEnd(&occupiedRooms);
-            pushAvailable(&availableRooms, freedRoom.room);
+        long long start = meetings[i][0];
+        long long end = meetings[i][1];
+        long long duration = end - start;
+
+        while (busySize > 0 && busy[0].end <= start) {
+            BusyRoom br = heapPopBusy(busy, &busySize);
+            heapPushAvail(available, &availSize, br.room);
         }
-        if (availableRooms.size > 0) {
-            int room = popAvailable(&availableRooms);
-            roomCount[room]++;
-            RoomEnd newEnd;
-            newEnd.time = sortedMeetings[i].end;
-            newEnd.room = room;
-            pushRoomEnd(&occupiedRooms, newEnd);
+
+        if (availSize > 0) {
+            int room = heapPopAvail(available, &availSize);
+            heapPushBusy(busy, &busySize, (BusyRoom){end, room});
+            count[room]++;
         } else {
-            // Need to delay the meeting until the earliest end time
-            RoomEnd earliestEnd = popRoomEnd(&occupiedRooms);
-            long long delay = earliestEnd.time - currentTime;
-            long long newEndTime = earliestEnd.time + (sortedMeetings[i].end - sortedMeetings[i].start);
-            roomCount[earliestEnd.room]++;
-            RoomEnd newEnd;
-            newEnd.time = newEndTime;
-            newEnd.room = earliestEnd.room;
-            pushRoomEnd(&occupiedRooms, newEnd);
+            BusyRoom br = heapPopBusy(busy, &busySize);
+            long long newEnd = br.end + duration;
+            heapPushBusy(busy, &busySize, (BusyRoom){newEnd, br.room});
+            count[br.room]++;
         }
     }
 
-    free(sortedMeetings);
-    free(availableRooms.data);
-    free(occupiedRooms.data);
-
-    int maxMeetings = -1;
-    int resultRoom = 0;
-    for (int i = 0; i < n; i++) {
-        if (roomCount[i] > maxMeetings) {
-            maxMeetings = roomCount[i];
-            resultRoom = i;
-        } else if (roomCount[i] == maxMeetings && i < resultRoom) {
-            resultRoom = i;
-        }
+    int ans = 0;
+    for (int i = 1; i < n; i++) {
+        if (count[i] > count[ans])
+            ans = i;
     }
-    free(roomCount);
-    return resultRoom;
+
+    free(available);
+    free(busy);
+    free(count);
+    return ans;
 }
-
 
 int main() {
     // Test Case 1
