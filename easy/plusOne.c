@@ -37,7 +37,6 @@ int main() {
     }
     printf("\n");
 
-    // Free memory only if malloc was used
     if (result != digits)
         free(result);
 
