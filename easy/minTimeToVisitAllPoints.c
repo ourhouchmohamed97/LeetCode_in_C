@@ -14,7 +14,6 @@ int minTimeToVisitAllPoints(int** points, int pointsSize, int* pointsColSize) {
 }
 
 int main() {
-    // Example 1: points = [[1,1],[3,4],[-1,0]]
     int points1Data[3][2] = {{1,1}, {3,4}, {-1,0}};
     int points1Size = 3;
     int points1ColSize = 2;
@@ -27,13 +26,11 @@ int main() {
     int result1 = minTimeToVisitAllPoints(points1, points1Size, &points1ColSize);
     printf("Example 1 Output: %d\n", result1); // Expected: 7
 
-    // Free memory for points1
     for (int i = 0; i < points1Size; i++) {
         free(points1[i]);
     }
     free(points1);
 
-    // Example 2: points = [[3,2],[-2,2]]
     int points2Data[2][2] = {{3,2}, {-2,2}};
     int points2Size = 2;
     int points2ColSize = 2;
@@ -46,7 +43,7 @@ int main() {
     int result2 = minTimeToVisitAllPoints(points2, points2Size, &points2ColSize);
     printf("Example 2 Output: %d\n", result2); // Expected: 5
 
-    // Free memory for points2
+
     for (int i = 0; i < points2Size; i++) {
         free(points2[i]);
     }
