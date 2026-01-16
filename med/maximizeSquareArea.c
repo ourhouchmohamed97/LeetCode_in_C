@@ -1,5 +1,7 @@
 // Maximum Square Area by Removing Fences From a Field
 
+#include <stdbool.h>
+
 static int cmp(const void* a, const void* b) { return (*(int*)a - *(int*)b); }
 
 // Simple hash set for int (open addressing)
