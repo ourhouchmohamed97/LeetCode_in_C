@@ -6,7 +6,6 @@ int minCost(char* colors, int* neededTime, int neededTimeSize) {
 
     while (i < neededTimeSize - 1) {
         if (colors[i] == colors[i + 1]) {
-            // Find consecutive group of same colors
             int maxTime = neededTime[i];
             int sumTime = neededTime[i];
             int j = i + 1;
@@ -18,9 +17,8 @@ int minCost(char* colors, int* neededTime, int neededTimeSize) {
                 j++;
             }
 
-            // Remove all except the one with max time
             totalTime += (sumTime - maxTime);
-            i = j; // move to next color group
+            i = j;
         } else {
             i++;
         }
