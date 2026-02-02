@@ -1,5 +1,7 @@
 // Divide an Array Into Subarrays With Minimum Cost II
 
+#include <limits.h>
+
 long long bitSum[100005];
 int bitCount[100005];
 int sortedUnique[100005];
