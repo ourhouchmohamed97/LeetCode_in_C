@@ -41,13 +41,13 @@ int main() {
     char* a1 = "11";
     char* b1 = "1";
     char* result1 = addBinary(a1, b1);
-    printf("Test Case 1: %s\n", result1); // Expected output: "100"
+    printf("Test Case 1: %s\n", result1);
     free(result1);
 
     char* a2 = "1010";
     char* b2 = "1011";
     char* result2 = addBinary(a2, b2);
-    printf("Test Case 2: %s\n", result2); // Expected output: "10101"
+    printf("Test Case 2: %s\n", result2);
     free(result2);
 
     return 0;
