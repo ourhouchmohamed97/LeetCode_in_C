@@ -1,0 +1,7 @@
+// Binary Number with Alternating Bits
+
+#include <stdbool.h>
+
+bool hasAlternatingBits(int n) {
+    return (n & (n >> 1)) == 0 && (n | (n >> 2)) == n;
+}
