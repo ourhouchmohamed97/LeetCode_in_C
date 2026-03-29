@@ -1,5 +1,7 @@
 // Check if Strings Can be Made Equal With Operations I
 
+#include <stdbool.h>
+
 int compare_char(const void *a, const void *b) {
     return *(char*)a - *(char*)b;
 }
