@@ -1,5 +1,7 @@
 // Walking Robot Simulation
 
+#include <stdbool.h>
+
 typedef struct {
     int x, y;
 } Pair;
