@@ -1,5 +1,7 @@
 // Walking Robot Simulation II
 
+#include <stdbool.h>
+
 typedef struct {
     int w, h, per, pos;
     bool moved;
