@@ -1,5 +1,7 @@
 // Minimum Distance Between Three Equal Elements II
 
+#include <limits.h>
+
 int minimumDistance(int* nums, int numsSize) {
     int* last = (int*)malloc((numsSize + 1) * sizeof(int));
     int* second = (int*)malloc((numsSize + 1) * sizeof(int));
