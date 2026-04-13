@@ -1,5 +1,7 @@
 // Minimum Distance to the Target Element
 
+#include <limits.h>
+
 int getMinDistance(int* nums, int numsSize, int target, int start) {
     int min = INT_MAX;
 
