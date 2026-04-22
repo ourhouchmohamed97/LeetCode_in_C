@@ -1,5 +1,8 @@
 // Words Within Two Edits of Dictionary
 
+#include <stdbool.h>
+#include <unistd.h>
+
 bool is_valid_query( char const *query, char const *dictionaryEntry )
 {
     size_t len = strlen( query );
