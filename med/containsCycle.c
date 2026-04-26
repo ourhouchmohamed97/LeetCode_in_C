@@ -1,5 +1,8 @@
 // Detect Cycles in 2D Grid
 
+
+#include <stdbool.h>
+
 int find(int x, int* parent) {
     while (parent[x] != x) {
         parent[x] = parent[parent[x]];
