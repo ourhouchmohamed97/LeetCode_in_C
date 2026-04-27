@@ -1,5 +1,7 @@
 // Check if There is a Valid Path in a Grid
 
+#include <stdbool.h>
+
 bool hasValidPath(int** grid, int gridSize, int* gridColSize) {
     int rows = gridSize;
     int cols = gridColSize[0];
