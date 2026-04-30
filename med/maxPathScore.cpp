@@ -1,5 +1,11 @@
 // Maximum Path Score in a Grid
 
+#include <vector>
+#include <algorithm>
+#include <climits>
+
+using namespace std;
+
 class Solution {
 public:
     int maxPathScore(vector<vector<int>>& grid, int k) {
