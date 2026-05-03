@@ -1,5 +1,6 @@
 // Rotate String
 
+#include <stdbool.h>
 
 bool rotateString(char* s, char* goal) {
     int n = strlen(s);
