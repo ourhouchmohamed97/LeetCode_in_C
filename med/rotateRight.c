@@ -1,6 +1,6 @@
-#include <stdlib.h>
-
 // Rotate List
+
+#include <stdlib.h>
 
 struct ListNode {
     int val;
