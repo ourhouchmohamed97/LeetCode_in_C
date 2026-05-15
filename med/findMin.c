@@ -11,5 +11,6 @@ int findMin(int* nums, int numsSize) {
             right = mid;
         }
     }
+    
     return nums[left];
 }
