@@ -1,5 +1,7 @@
 // Jump Game III
 
+#include <stdbool.h>
+
 #pragma optimize("O3, unroll-loops")
 int q[50000];
 int front=0, back=0;// for queue 
