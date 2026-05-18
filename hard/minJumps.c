@@ -1,5 +1,8 @@
 // Jump Game IV
 
+#include <stdbool.h>
+#include <stdlib.h>
+
 typedef struct Node {
     int key;
     int* data;
@@ -8,6 +11,7 @@ typedef struct Node {
     int used;
     struct Node* next;
 } Node;
+
 #define HASH_SIZE 200003
 unsigned int hashKey(int x) {
     return ((unsigned int)x) % HASH_SIZE;
