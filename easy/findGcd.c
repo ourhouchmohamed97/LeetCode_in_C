@@ -1,3 +1,5 @@
+// Find GCD 
+
 int findGCD(int* nums, int numsSize) {
     int minNum = nums[0];
     int maxNum = nums[0];
