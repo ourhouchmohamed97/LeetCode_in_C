@@ -4,7 +4,8 @@
 #include <limits.h>
 
 int maximumProduct(int* nums, int numsSize) {
-    if (numsSize < 3) return 0;
+    if (numsSize < 3)
+        return 0;
     
     int max1 = INT_MIN, max2 = INT_MIN, max3 = INT_MIN;
     int min1 = INT_MAX, min2 = INT_MAX;
