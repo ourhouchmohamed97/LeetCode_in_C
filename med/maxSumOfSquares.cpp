@@ -11,13 +11,11 @@ public:
 
         int nines = digit_sum / 9;
         int remainder = digit_sum % 9;
-
         std::string res(nines, '9');
         
         if (remainder > 0) {
             res.push_back(remainder + '0');
         }
-        
         res.append(num - res.length(), '0');
         
         return res;
